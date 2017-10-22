@@ -17,6 +17,11 @@
             <groupId>io.vertx</groupId>
             <artifactId>vertx-rx-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-kubernetes</artifactId>
+            <version>${hazelcast-kubernetes-version}</version>
+        </dependency>
     </dependencies>
 
 </project>

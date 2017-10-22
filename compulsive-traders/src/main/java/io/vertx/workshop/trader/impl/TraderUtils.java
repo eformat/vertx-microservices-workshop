@@ -14,7 +14,7 @@ public class TraderUtils {
   private final static Random RANDOM = new Random();
 
   public static String pickACompany() {
-    int choice = RANDOM.nextInt(2);
+    int choice = RANDOM.nextInt(3);
     switch (choice) {
       case 0:
         return "Divinator";

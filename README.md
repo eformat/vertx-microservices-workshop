@@ -45,3 +45,36 @@ To build the documentation:
     docker run -it -v `pwd`:/documents/ asciidoctor/docker-asciidoctor "./build.sh" "html"
     # or for fish
     docker run -it -v (pwd):/documents/ asciidoctor/docker-asciidoctor "./build.sh" "html"
+
+## OpenShift
+
+```
+oc new-project vertx-trader
+oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default
+
+cd virt:~/git/vertx-microservices-workshop/trader-dashboard
+oc new-build --name=trader-dashboard --strategy=docker --binary
+oc start-build trader-dashboard --from-file=. --follow
+oc new-app trader-dashboard
+oc expose svc trader-dashboard
+
+cd ~/git/vertx-microservices-workshop/quote-generator
+oc new-build --name=quote-generator --strategy=docker --binary
+oc start-build quote-generator --from-file=. --follow
+oc new-app quote-generator
+
+cd ~/git/vertx-microservices-workshop/portfolio-service
+oc new-build --name=portfolio-service --strategy=docker --binary
+oc start-build portfolio-service --from-file=. --follow
+oc new-app portfolio-service
+
+cd ~/git/vertx-microservices-workshop/compulsive-traders
+oc new-build --name=compulsive-traders --strategy=docker --binary
+oc start-build compulsive-traders --from-file=. --follow
+oc new-app compulsive-traders
+
+cd ~/git/vertx-microservices-workshop/audit-service
+oc new-build --name=audit-service --strategy=docker --binary
+oc start-build audit-service --from-file=. --follow
+oc new-app audit-service
+```
